@@ -1,0 +1,23 @@
+class Solution:
+    def multiply(self, num1: str, num2: str) -> str:
+        if num1 == "0" or num2 == "0":
+            return "0"
+        res = [0] * (len(num1) + len(num2))
+        for i in range(len(num1) - 1, -1, -1):
+            for j in range(len(num2) - 1, -1, -1):
+                n1 = ord(num1[i]) - ord('0')
+                n2 = ord(num2[j]) - ord('0')
+                mul = n1 * n2
+                pos1 = i + j         # carries go here
+                pos2 = i + j + 1     # this is where mul result is added
+                total = mul + res[pos2]
+                res[pos1] += total // 10
+                res[pos2] = total % 10
+        result = ""
+        for digit in res:
+            if not (len(result) == 0 and digit == 0):
+                result += str(digit)
+        return result
+        #o(m+n),o(1)
+        
+        
